@@ -6,6 +6,13 @@ const { router, get, post } = require('microrouter');
 const staticHandler = require('serve-handler');
 // async-retry will retry failed API requests
 const retry = require('async-retry');
+const express = require('express');
+const app = express();
+
+const path = require('path');
+app.use('/.well-known', express.static(path.join(__dirname, 'public/.well-known'), {
+  dotfiles: 'allow' // this is crucial for .well-known directory
+}));
 
 // logger gives us insight into what's happening
 const logger = require('./server/logger');
